@@ -1,0 +1,611 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{analysis\_6\_writeup}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{data-analysis-6}{%
+\section{Data Analysis 6}\label{data-analysis-6}}
+
+    \hypertarget{dataset-description}{%
+\subsection{Dataset Description}\label{dataset-description}}
+
+    We are analyzing a subset of data from the Framingham Heart Study. The
+dataset contains health data for patients, which has been anonymized for
+patient confidentiality. The dataset includes records on 1500
+participants over a period of time for a set of variables. Data was
+collected for participants over 4607 days. The features for this dataset
+are \textbf{SEX}, \textbf{CURSMOKE}, \textbf{DIABETES},
+\textbf{PREVHYP}, \textbf{EDUC}, \textbf{AGE}, \textbf{TOTCHOL},
+\textbf{SYSBP}, \textbf{DIABP}, \textbf{CIGPDAY}, \textbf{BMI},
+\textbf{HEARTRTE}, \textbf{GLUCOSE}, \textbf{PERIOD}, and \textbf{TIME}.
+\textbf{SEX} is a binary categorical variable for the participants
+biological sex, with 1 for men and 2 for women. \textbf{CURSMOKE} is
+binary categorical variable for whether the participant smokes or not,
+with 0 for no and 1 for yes. \textbf{DIABETES} is binary categorical
+variable for whether the participant has diabetes or not, with 0 for no
+and 1 for yes. \textbf{PREVHYP} is the response variable and is a binary
+categorical variable representing whether the participant has
+hypertension or not. \textbf{EDUC} is an ordinal variable for education
+level with 4 levels; 1 for 0-11 years of school, 2 for high school
+diploma or GED, 3 for some college or vocational school, and 4 is
+college degree and more. \textbf{AGE} is a continuous variable for age.
+\textbf{TOTCHOL} is a continuous variable for serum total cholesterol.
+\textbf{SYSBP} is a continuous variable for systolic blood pressure.
+\textbf{DIABP} is a continuous variable for diastolic blood pressure.
+\textbf{CIGPDAY} is a continuous variable representing the number of
+cigarettes the participant smokes per day. \textbf{BMI} is a continuous
+variable representing the patients body mass index. \textbf{HEARTRTE} is
+a continuous variable representing heart rate in beats per minute.
+Finally, \textbf{GLUCOSE} is a continuous variable that represents
+causal serum glucose. The additional variables in this analysis are
+\textbf{PERIOD} and \textbf{TIME}. \textbf{PERIOD} is a categorical
+variable that buckets time into 3 categories. \textbf{TIME} is a numeric
+variable representing the number of days since the baseline exam.
+
+    \hypertarget{data-cleaning}{%
+\subsection{Data Cleaning}\label{data-cleaning}}
+
+    In this case, there was no missing data. Therefore, the only data
+cleaning to do is to convert categorical variables to factors.
+
+    \hypertarget{exploratory-data-analysis-tests}{%
+\subsection{Exploratory Data Analysis
+(tests)}\label{exploratory-data-analysis-tests}}
+
+    Next, a few chi squared tests were run to to test if there is a
+relationship between categorical variables and the response.
+\textbf{PERIOD} did not seem worth checking, however, \textbf{SEX},
+\textbf{CURSMOKE}, \textbf{DIABETES}, and \textbf{EDUC}. \textbf{SEX}
+and \textbf{EDUC} do not change overtime, therefore, it is irrelevant
+that this is time series data for the chi squared tests. The tests still
+apply the same. For \textbf{CURSMOKE} and \textbf{DIABETES}, values do
+change over time for participants, however, I would still argue the test
+have power and are relevant. If a participant has their
+\textbf{CURSMOKE} or \textbf{DIABETES} value change over time, they can
+also have the response \textbf{PREVHYP} change as well. Therefore, these
+tests still show relationships between these variables and the response.
+P values ranged from .08 for \textbf{SEX} to 1.194e-09 for
+\textbf{CURSMOKE}. All categoricals besides \textbf{SEX} had p values
+below .05. We will consider removing \textbf{SEX} from the final model,
+however, a p value of .08 suggests that there still is a strong case
+that \textbf{SEX} is not independent of \textbf{PREVHYP}. The
+contingency tables for these four categoricals are displayed below.
+
+    \hypertarget{table-1-sex}{%
+\paragraph{Table 1: SEX}\label{table-1-sex}}
+
+    \begin{longtable}[]{@{}ccc@{}}
+\toprule
+~ & free of disease & prevalent disease\tabularnewline
+\midrule
+\endhead
+\textbf{Male} & 366 & 336\tabularnewline
+\textbf{Female} & 453 & 345\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{table-2-cursmoke}{%
+\paragraph{Table 2: CURSMOKE}\label{table-2-cursmoke}}
+
+    \begin{longtable}[]{@{}ccc@{}}
+\toprule
+~ & free of disease & prevalent disease\tabularnewline
+\midrule
+\endhead
+\textbf{Yes} & 420 & 456\tabularnewline
+\textbf{No} & 399 & 225\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{table-3-diabetes}{%
+\paragraph{Table 3: DIABETES}\label{table-3-diabetes}}
+
+    \begin{longtable}[]{@{}ccc@{}}
+\toprule
+~ & free of disease & prevalent disease\tabularnewline
+\midrule
+\endhead
+\textbf{Not Diabetic} & 811 & 634\tabularnewline
+\textbf{Diabetic} & 8 & 47\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{table-4-educ}{%
+\paragraph{Table 4: EDUC}\label{table-4-educ}}
+
+    \begin{longtable}[]{@{}ccc@{}}
+\toprule
+~ & free of disease & prevalent disease\tabularnewline
+\midrule
+\endhead
+\textbf{0-11 years} & 287 & 295\tabularnewline
+\textbf{High School Diploma or GED} & 274 & 212\tabularnewline
+\textbf{Some College or Vocational School} & 153 & 96\tabularnewline
+\textbf{College degree or more} & 105 & 78\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \hypertarget{exploratory-data-analysis-plots}{%
+\subsection{Exploratory Data Analysis
+(plots)}\label{exploratory-data-analysis-plots}}
+
+    Next, exploratory plots were generated for the continuous variables. For
+each, there are overall density plots, seperated by the response value.
+This is used to see if there are differences in the distributions of
+each continuous variable for the two classes. These charts do not take
+into account time, therefore individual trajectories for each continuous
+variable for each participant overtime are also plotted. These are also
+colored by response class to see if there is a difference between the
+classes. We can see from these charts that \textbf{SYSBP} and
+\textbf{CIGPDAY} values seem to be higher for individuals that have
+hypertension versus those that do not. Therefore, we will consider using
+these values over others in the models.
+
+    \hypertarget{figure-1-age-density}{%
+\paragraph{Figure 1: AGE Density}\label{figure-1-age-density}}
+
+    \includegraphics{output_12_1.png}
+
+    \hypertarget{figure-2-totchol-density}{%
+\paragraph{Figure 2: TOTCHOL Density}\label{figure-2-totchol-density}}
+
+    \includegraphics{output_13_1.png}
+
+    \hypertarget{figure-3-totchol-trajectories}{%
+\paragraph{Figure 3: TOTCHOL
+Trajectories}\label{figure-3-totchol-trajectories}}
+
+    \includegraphics{output_14_1.png}
+
+    \hypertarget{figure-4-sysbp-density}{%
+\paragraph{Figure 4: SYSBP Density}\label{figure-4-sysbp-density}}
+
+    \includegraphics{output_15_1.png}
+
+    \hypertarget{figure-5-sysbp-trajectories}{%
+\paragraph{Figure 5: SYSBP
+Trajectories}\label{figure-5-sysbp-trajectories}}
+
+    \includegraphics{output_16_1.png}
+
+    \hypertarget{figure-6-diabp-density}{%
+\paragraph{Figure 6: DIABP Density}\label{figure-6-diabp-density}}
+
+    \includegraphics{output_17_1.png}
+
+    \hypertarget{figure-7-diabp-trajectories}{%
+\paragraph{Figure 7: DIABP
+Trajectories}\label{figure-7-diabp-trajectories}}
+
+    \includegraphics{output_18_1.png}
+
+    \hypertarget{figure-8-cigpday-density}{%
+\paragraph{Figure 8: CIGPDAY Density}\label{figure-8-cigpday-density}}
+
+    \includegraphics{output_19_1.png}
+
+    \hypertarget{figure-9-cigpday-trajectories}{%
+\paragraph{Figure 9: CIGPDAY
+Trajectories}\label{figure-9-cigpday-trajectories}}
+
+    \includegraphics{output_20_1.png}
+
+    \hypertarget{figure-10-bmi-density}{%
+\paragraph{Figure 10: BMI Density}\label{figure-10-bmi-density}}
+
+    \includegraphics{output_21_1.png}
+
+    \hypertarget{figure-11-bmi-trajectories}{%
+\paragraph{Figure 11: BMI
+Trajectories}\label{figure-11-bmi-trajectories}}
+
+    \includegraphics{output_22_1.png}
+
+    \hypertarget{figure-12-heartrte-density}{%
+\paragraph{Figure 12: HEARTRTE
+Density}\label{figure-12-heartrte-density}}
+
+    \includegraphics{output_23_1.png}
+
+    \hypertarget{figure-13-heartrte-trajectories}{%
+\paragraph{Figure 13: HEARTRTE
+Trajectories}\label{figure-13-heartrte-trajectories}}
+
+    \includegraphics{output_24_1.png}
+
+    \hypertarget{figure-14-glucose-density}{%
+\paragraph{Figure 14: Glucose Density}\label{figure-14-glucose-density}}
+
+    \includegraphics{output_25_1.png}
+
+    \hypertarget{figure-15-glucose-trajectories}{%
+\paragraph{Figure 15: GLUCOSE
+Trajectories}\label{figure-15-glucose-trajectories}}
+
+    \includegraphics{output_26_1.png}
+
+    \hypertarget{figure-16-prevhyp-density}{%
+\paragraph{Figure 16: PREVHYP Density}\label{figure-16-prevhyp-density}}
+
+    \includegraphics{output_27_1.png}
+
+    \hypertarget{figure-17-prevhyp-trajectories}{%
+\paragraph{Figure 17: PREVHYP
+Trajectories}\label{figure-17-prevhyp-trajectories}}
+
+    \includegraphics{output_28_1.png}
+
+    \hypertarget{model-fitting}{%
+\subsection{Model Fitting}\label{model-fitting}}
+
+    Four different models were fit, all of which were Generalized Linear
+Mixed-Effects models for longitudinal data. As the response is a binary
+categorical variable, the binomial family is utilized. For every model,
+I also utilized a random intercept. I decided not to explore interaction
+terms, for reasons that are apparent later. The first model uses every
+variable, while the second uses every except for \textbf{PERIOD}. I
+decided to omit \textbf{PERIOD} in the second model, as it is just a
+categorical that bins \textbf{TIME} and likely will have a high
+correlation with \textbf{TIME} and not much predictive power. It could
+be useful in interaction terms, however, I decided not to use any
+interaction terms. The third model fit utilized the two continuous
+variables with differing trajectory values, \textbf{SYSBP} and
+\textbf{CIGPDAY}, as well as the three categoricals with chi squared
+tests that had p values below .05, \textbf{CURSMOKE}, \textbf{DIABETES},
+and \textbf{EDUC}. The final model fit utilized only the two continuous
+variables \textbf{SYSBP} and \textbf{CIGPDAY}. The second model and
+first model had comperable AIC and BIC as the best models, with values
+of 952.4222 and 1053.373 for the first model and 950.2637 and 1040.588
+for the second model. Given the second model has slightly better values
+for AIC and BIC and is slightly less complicated, this model is selected
+for as the final model. The qqplots for all of these models also show
+slighly fatter tails, however, this is ok for the fit. There is no
+apparent left or right skew that needs to be adjusted for.
+
+    \hypertarget{figure-18-model-1-qqplot}{%
+\paragraph{Figure 18: Model 1 QQplot}\label{figure-18-model-1-qqplot}}
+
+    \includegraphics{output_31_1.png}
+
+    \hypertarget{figure-19-model-2-qqplot}{%
+\paragraph{Figure 19: Model 2 QQplot}\label{figure-19-model-2-qqplot}}
+
+    \includegraphics{output_31_1.png}
+
+    \hypertarget{figure-20-model-3-qqplot}{%
+\paragraph{Figure 20: Model 3 QQplot}\label{figure-20-model-3-qqplot}}
+
+    \includegraphics{output_35_1.png}
+
+    \hypertarget{figure-21-model-4-qqplot}{%
+\paragraph{Figure 21: Model 4 QQplot}\label{figure-21-model-4-qqplot}}
+
+    \includegraphics{output_37_1.png}
+
+    \hypertarget{model-evaluation}{%
+\subsection{Model Evaluation}\label{model-evaluation}}
+
+    ROC curves were generated for all models, and the area under these
+curves was calculated as well. For the final model, the auroc was .9942,
+while it was .9937, .9631, and .964 for the other models respectively.
+This is a fantastic fit, and shows why I decided not test interaction
+terms.
+
+    \hypertarget{figure-22-roc-curve-final-modelmodel-2}{%
+\paragraph{Figure 22: ROC Curve Final Model(model
+2)}\label{figure-22-roc-curve-final-modelmodel-2}}
+
+    \includegraphics{output_41_1.png}
+
+    \hypertarget{figure-23-roc-curve-model-1}{%
+\paragraph{Figure 23: ROC Curve Model
+1}\label{figure-23-roc-curve-model-1}}
+
+    \includegraphics{output_42_1.png}
+
+    \hypertarget{figure-24-roc-curve-model-3}{%
+\paragraph{Figure 24: ROC Curve Model
+3}\label{figure-24-roc-curve-model-3}}
+
+    \includegraphics{output_43_1.png}
+
+    \hypertarget{figure-25-roc-curve-model-4}{%
+\paragraph{Figure 25: ROC Curve Model
+4}\label{figure-25-roc-curve-model-4}}
+
+    \includegraphics{output_44_1.png}
+
+    The GAM was the best fit model in the previous data analysis on this
+dataset. The auroc was .9258 for the final GAM, which is considerably
+worse than all of the models fit in this analysis. We can conclude that
+utilizing longitudinal data allows for a better fit model.
+
+    \hypertarget{figure-26-roc-curve-old-model}{%
+\paragraph{Figure 26: ROC Curve Old
+Model}\label{figure-26-roc-curve-old-model}}
+
+    \includegraphics{../analysis_5/output_42_1.png}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
